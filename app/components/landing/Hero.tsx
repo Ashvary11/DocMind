@@ -6,7 +6,7 @@ const points = [
   "Vector Search Powered",
   "Fast AI Responses",
   "Secure Document Processing",
-  "Auto Data Delete after 1 hour",
+  "Auto Data Delete",
 ];
 
 export default function Hero() {

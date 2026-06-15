@@ -1,6 +1,10 @@
 import Hero from "./components/landing/Hero";
 import Features from "./components/landing/Features";
 import HowItWorks from "./components/landing/HowItWorks";
+import UseCases from "./components/landing/UseCases";
+import Comparison from "./components/landing/Comparison";
+import CTA from "./components/landing/CTA";
+import Footer from "./components/landing/Footer";
 
 export default function Home() {
   return (
@@ -8,6 +12,10 @@ export default function Home() {
       <Hero />
       <Features />
       <HowItWorks />
+      <UseCases />
+      <Comparison />
+      <CTA />
+      <Footer />
     </div>
   );
 }
