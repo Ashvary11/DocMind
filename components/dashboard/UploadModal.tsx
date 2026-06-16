@@ -22,6 +22,10 @@ export default function UploadModal({ open, onClose, onUploaded }: Props) {
       toast.error("Please select a file");
       return;
     }
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error("Max size is 10 MB");
+      return;
+    }
 
     setLoading(true);
     try {
@@ -34,11 +38,11 @@ export default function UploadModal({ open, onClose, onUploaded }: Props) {
         body: formData,
       });
       const data = await res.json();
-      
+
       if (!res.ok) {
         throw new Error(data.error || "Upload failed");
       }
-      console.log("data--",data);
+      console.log("data--", data);
 
       toast.success("Document uploaded! Processing started.");
       setFile(null);

@@ -23,6 +23,7 @@ export default function EditDocumentModal({
   const [loading, setLoading] = useState(false);
 
   if (!document) return null;
+  console.log(document);
 
   const handleSave = async () => {
     if (!title.trim()) {
@@ -33,7 +34,7 @@ export default function EditDocumentModal({
     setLoading(true);
     try {
       const res = await fetch(`/api/documents/${document._id}`, {
-        method: "PUT",
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ title }),
       });

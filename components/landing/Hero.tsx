@@ -19,7 +19,7 @@ export default function Hero() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="relative overflow-hidden bg-gradient-to-b from-brand-50 to-white px-6 py-24 sm:py-32"
+      className="relative overflow-hidden bg-linear-to-b from-brand-50 to-white px-6 py-24 sm:py-32"
     >
       <div className="mx-auto max-w-4xl text-center">
         <h1 className="text-4xl font-bold tracking-tight text-brand-900 sm:text-6xl">
