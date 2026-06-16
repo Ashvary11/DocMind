@@ -1,5 +1,8 @@
+"use client";
+
 import { Check } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const points = [
   "PDF, DOCX & TXT Support",
@@ -11,7 +14,13 @@ const points = [
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-brand-50 to-white px-6 py-24 sm:py-32">
+    <motion.section
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="relative overflow-hidden bg-gradient-to-b from-brand-50 to-white px-6 py-24 sm:py-32"
+    >
       <div className="mx-auto max-w-4xl text-center">
         <h1 className="text-4xl font-bold tracking-tight text-brand-900 sm:text-6xl">
           Your Documents.{" "}
@@ -28,7 +37,7 @@ export default function Hero() {
         <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/dashboard"
-            className="rounded-lg bg-brand-500 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-500/30 transition hover:bg-brand-600"
+            className="rounded-lg bg-brand-500 px-8 py-3 text-sm font-semibold text-slate-700  shadow-lg shadow-brand-500/30 transition hover:bg-brand-600"
           >
             Get Started Free
           </Link>
@@ -52,6 +61,6 @@ export default function Hero() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

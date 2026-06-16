@@ -1,4 +1,6 @@
+"use client";
 import { X, Check } from "lucide-react";
+import { motion } from "framer-motion";
 
 const traditional = [
   "Keyword matching only",
@@ -15,7 +17,16 @@ const docmind = [
 
 export default function Comparison() {
   return (
-    <section className="bg-slate-50 px-6 py-24">
+    <motion.section
+      initial={{ opacity: 0, y: 80 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{
+        duration: 0.7,
+          ease: "easeOut",
+      }}
+      className="bg-slate-50 px-6 py-24"
+    >
       <div className="mx-auto max-w-4xl">
         <h2 className="text-center text-3xl font-bold tracking-tight text-brand-900 sm:text-4xl">
           Why Choose DocMind?
@@ -55,6 +66,6 @@ export default function Comparison() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

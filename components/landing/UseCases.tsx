@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 const cases = [
   {
     title: "Students",
@@ -19,7 +22,16 @@ const cases = [
 
 export default function UseCases() {
   return (
-    <section className="px-6 py-24">
+    <motion.section
+      initial={{ opacity: 0, y: 80 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{
+        duration: 0.7,
+          ease: "easeOut",
+      }}
+      className="px-6 py-24"
+    >
       <div className="mx-auto max-w-6xl">
         <h2 className="text-center text-3xl font-bold tracking-tight text-brand-900 sm:text-4xl">
           Use Cases
@@ -39,6 +51,6 @@ export default function UseCases() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

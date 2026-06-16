@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import {
   Upload,
   Brain,
@@ -42,7 +45,16 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="px-6 py-24">
+    <motion.section
+      initial={{ opacity: 0, y: 80 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{
+        duration: 0.9,
+        ease: "easeOut",
+      }}
+      className="px-6 py-24"
+    >
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-bold tracking-tight text-brand-900 sm:text-4xl">
@@ -71,6 +83,6 @@ export default function Features() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
