@@ -3,6 +3,7 @@ import fs from "fs/promises";
 import path from "path";
 import { connectDB } from "@/lib/db";
 import Document from "@/lib/models/document";
+import { processData } from "@/lib/service/document.service";
 
 export async function POST(req: Request) {
   try {
@@ -57,13 +58,17 @@ export async function POST(req: Request) {
       title: title || file.name,
       fileName: file.name,
       filePath,
-      size: file.size,
+      fileSize: file.size,
       status: "processing",
     });
+
+    // the main processing for rag
+    const result = await processData(doc);
 
     return NextResponse.json({
       success: true,
       document: doc,
+      dataResult: result?.success ? result : false,
     });
   } catch (error) {
     console.error(error);

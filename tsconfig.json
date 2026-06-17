@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, "lib/rag/1extractText.js", "lib/rag/2chunk.js", "lib/rag/3embedding.js", "lib/rag/4storeInDb.js", "lib/service/document.service.js"  ],
   "exclude": ["node_modules"]
 }

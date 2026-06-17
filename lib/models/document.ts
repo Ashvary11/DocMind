@@ -15,7 +15,7 @@ const DocumentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    size: Number,
+    fileSize: Number,
     status: {
       type: String,
       default: "processing",
