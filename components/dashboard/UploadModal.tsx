@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { UploadCloud } from "lucide-react";
 import Button from "../ui/Button";
 import Modal from "../ui/Modal";
+import { getUserId } from "@/lib/user";
 
 interface Props {
   open: boolean;
@@ -15,7 +16,8 @@ interface Props {
 export default function UploadModal({ open, onClose, onUploaded }: Props) {
   const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);  
+  const userId = getUserId();
 
   const handleSubmit = async () => {
     if (!file) {
@@ -32,6 +34,7 @@ export default function UploadModal({ open, onClose, onUploaded }: Props) {
       const formData = new FormData();
       formData.append("file", file);
       formData.append("title", title || file.name);
+      formData.append("userId", userId);
 
       const res = await fetch("/api/documents", {
         method: "POST",

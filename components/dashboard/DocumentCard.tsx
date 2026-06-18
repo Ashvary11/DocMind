@@ -19,12 +19,16 @@ interface Props {
 }
 
 const statusConfig = {
-  ready: { icon: CheckCircle2, color: "text-green-500", label: "Ready" },
+  starting: { icon: Loader2, color: "text-yellow-500", label: "Processing" },
   processing: { icon: Loader2, color: "text-amber-500", label: "Processing" },
+  ready: { icon: CheckCircle2, color: "text-green-500", label: "Ready" },
   failed: { icon: AlertCircle, color: "text-red-500", label: "Failed" },
 };
 
 export default function DocumentCard({ doc, onEdit, onDelete }: Props) {
+
+  console.log(doc._id);
+  
   const status = statusConfig[doc.status];
   const StatusIcon = status.icon;
 
@@ -46,7 +50,7 @@ export default function DocumentCard({ doc, onEdit, onDelete }: Props) {
                 className={`h-3 w-3 ${doc.status === "processing" ? "animate-spin" : ""}`}
               />
               {status.label}
-              {doc.status === "ready" && ` • ${doc.chunkCount} chunks`}
+              {doc.status === "ready"}
             </span>
           </div>
         </div>

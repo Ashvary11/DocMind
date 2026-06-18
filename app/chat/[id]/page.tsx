@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { Send, FileText, Loader2 } from "lucide-react";
 import { DocumentItem } from "@/app/types";
 import { toast } from "sonner";
+import { getUserId } from "@/lib/user";
 
 interface Message {
   role: "user" | "assistant";
@@ -20,12 +21,29 @@ export default function ChatPage() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const userId = getUserId();
 
   useEffect(() => {
-    fetch(`/api/documents/${id}`)
-      .then((r) => r.json())
-      .then((d) => setDoc(d.document))
-      .catch(() => toast.error("Failed to load document"));
+    if (!id) return;
+    console.log("Doc-id--", id);
+    console.log("userId--", userId);
+    const fetchDoc = async () => {
+      try {
+        const res = await fetch(`/api/documents/${id}`);
+
+        if (!res.ok) {
+          throw new Error("Failed to fetch document");
+        }
+
+        const data = await res.json();
+
+        setDoc(data.document);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchDoc();
   }, [id]);
 
   useEffect(() => {
@@ -44,7 +62,7 @@ export default function ChatPage() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ documentId: id, question }),
+        body: JSON.stringify({ docId: id, query: question, userId }),
       });
 
       const data = await res.json();

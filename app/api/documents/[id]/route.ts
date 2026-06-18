@@ -4,6 +4,32 @@ import fs from "fs/promises";
 import { connectDB } from "@/lib/db";
 import Document from "@/lib/models/document";
 
+export async function GET(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  try {
+    await connectDB();
+
+    const { id } = await params;
+
+    const doc = await Document.findById(id);
+
+    if (!doc) {
+      return NextResponse.json(
+        { error: "Document not found" },
+        { status: 404 },
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      document: doc,
+    });
+  } catch {
+    return NextResponse.json({ error: "Delete failed" }, { status: 500 });
+  }
+}
 export async function DELETE(
   req: Request,
   { params }: { params: Promise<{ id: string }> },

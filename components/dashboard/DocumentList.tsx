@@ -1,15 +1,14 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-
 import { Plus, Inbox } from "lucide-react";
-
 import DocumentCard from "./DocumentCard";
 import UploadModal from "./UploadModal";
 import EditDocumentModal from "./EditDocumentModal";
 import { DocumentItem } from "@/app/types";
 import { toast } from "sonner";
 import Button from "../ui/Button";
+import { getUserId } from "@/lib/user";
 
 export default function DocumentList() {
   const [docs, setDocs] = useState<DocumentItem[]>([]);
@@ -18,8 +17,10 @@ export default function DocumentList() {
   const [editDoc, setEditDoc] = useState<DocumentItem | null>(null);
 
   const fetchDocs = useCallback(async () => {
+    const userId = getUserId();
     try {
-      const res = await fetch("/api/documents");
+      // const res = await fetch("/api/documents");
+      const res = await fetch(`/api/documents?userId=${userId}`);
       const data = await res.json();
       setDocs(data.documents || []);
     } catch {
@@ -30,9 +31,11 @@ export default function DocumentList() {
   }, []);
 
   useEffect(() => {
-    const tempFetchDocs = async () => {
+    const userId = getUserId();
+
+    const load = async () => {
       try {
-        const res = await fetch("/api/documents");
+        const res = await fetch(`/api/documents?userId=${userId}`);
         const data = await res.json();
         setDocs(data.documents || []);
       } catch {
@@ -42,10 +45,7 @@ export default function DocumentList() {
       }
     };
 
-    tempFetchDocs();
-
-    // const interval = setInterval(fetchDocs, 5000); 
-    // return () => clearInterval(interval);
+    load();
   }, []);
 
   const handleDelete = async (doc: DocumentItem) => {

@@ -3,6 +3,10 @@ import mongoose from "mongoose";
 
 const DocumentSchema = new mongoose.Schema(
   {
+    userId: {
+      type: String,
+      required: true,
+    },
     title: {
       type: String,
       required: true,
@@ -18,7 +22,7 @@ const DocumentSchema = new mongoose.Schema(
     fileSize: Number,
     status: {
       type: String,
-      default: "processing",
+      default: "starting",
     },
   },
   {

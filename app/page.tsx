@@ -25,7 +25,7 @@ export default function Home() {
       >
         <Plane size={80} />
       </motion.div> */}
-      
+
       <Hero />
       <Features />
       <HowItWorks />

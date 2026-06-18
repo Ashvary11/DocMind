@@ -13,6 +13,7 @@ export async function POST(req: Request) {
 
     const file = formData.get("file") as File | null;
     const title = formData.get("title") as string;
+    const userId = formData.get("userId") as string;
 
     if (!(file instanceof File)) {
       return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
@@ -55,11 +56,12 @@ export async function POST(req: Request) {
     await fs.writeFile(filePath, buffer);
 
     const doc = await Document.create({
+      userId,
       title: title || file.name,
       fileName: file.name,
       filePath,
       fileSize: file.size,
-      status: "processing",
+      status: "starting",
     });
 
     // the main processing for rag
@@ -79,17 +81,26 @@ export async function POST(req: Request) {
     );
   }
 }
-export async function GET() {
+
+export async function GET(req: Request) {
   try {
     await connectDB();
 
-    const documents = await Document.find().sort({
+    const { searchParams } = new URL(req.url);
+    const userId = searchParams.get("userId");
+
+    if (!userId) {
+      return NextResponse.json(
+        { error: "User ID is required" },
+        { status: 400 },
+      );
+    }
+
+    const documents = await Document.find({ userId }).sort({
       createdAt: -1,
     });
 
-    return NextResponse.json({
-      documents,
-    });
+    return NextResponse.json({ documents });
   } catch {
     return NextResponse.json(
       { error: "Failed to fetch documents" },
