@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 
 import { Send, FileText, Loader2 } from "lucide-react";
-import { DocumentItem } from "@/app/types";
+import { DocumentItem } from "@/lib/types";
 import { toast } from "sonner";
 import { getUserId } from "@/lib/user";
 
@@ -67,10 +67,11 @@ export default function ChatPage() {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to get answer");
+      // console.log(data);
 
       setMessages((m) => [
         ...m,
-        { role: "assistant", content: data.answer, sources: data.sources },
+        { role: "assistant", content: data.ai_response, sources: data.sources },
       ]);
     } catch (err: unknown) {
       if (err instanceof Error) {

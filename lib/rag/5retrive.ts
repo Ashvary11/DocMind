@@ -1,4 +1,4 @@
-import { qdrant } from "../db";
+import { qdrant } from "../db/qudrant";
 
 export const searchInVector = async (
   queryEmbedding: number[],
@@ -27,7 +27,7 @@ export const searchInVector = async (
       },
     });
 
-    console.log(results);
+    // console.log(results);
     return results;
   } catch (error) {
     console.log(error);

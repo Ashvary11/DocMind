@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import fs from "fs/promises";
 
-import { connectDB } from "@/lib/db";
-import Document from "@/lib/models/document";
+import { connectDB } from "@/lib/db/mongo";
+import Document from "@/models/document";
 
 export async function GET(
   req: Request,

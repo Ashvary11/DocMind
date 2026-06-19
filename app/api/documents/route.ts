@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
-import { connectDB } from "@/lib/db";
-import Document from "@/lib/models/document";
+import { connectDB } from "@/lib/db/mongo";
+import Document from "@/models/document";
 import { processData } from "@/lib/service/document.service";
+ 
 
 export async function POST(req: Request) {
   try {

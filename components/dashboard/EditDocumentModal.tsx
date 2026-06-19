@@ -1,6 +1,6 @@
 "use client";
 
-import { DocumentItem } from "@/app/types";
+import { DocumentItem } from "@/lib/types";
 import { useState } from "react";
 import { toast } from "sonner";
 import Modal from "../ui/Modal";

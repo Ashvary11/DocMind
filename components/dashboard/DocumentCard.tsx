@@ -10,7 +10,7 @@ import {
   AlertCircle,
   CheckCircle2,
 } from "lucide-react";
-import { DocumentItem } from "@/app/types";
+import { DocumentItem } from "@/lib/types";
 
 interface Props {
   doc: DocumentItem;

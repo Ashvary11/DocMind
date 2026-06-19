@@ -2,9 +2,9 @@
 
 import { NextResponse } from "next/server";
 
-import { connectDB } from "@/lib/db";
-import { searchInVector } from "@/lib/qdrant/qudrantSearch";
-import { ai, embeddingAI } from "@/lib/ai/llm";
+import { connectDB } from "@/lib/db/mongo";
+
+import { chatResponse } from "@/lib/service/chat.service";
 
 export async function POST(req) {
   try {
@@ -19,38 +19,11 @@ export async function POST(req) {
       );
     }
 
-    const queryEmbedding = await embeddingAI.embedQuery(query);
-    // console.log("queryEmebedd", queryEmbedding);
-
-    // Search vector DB
-    const vectorResults = await searchInVector(queryEmbedding, userId, docId);
-
-    // console.log(vectorResults);
-
-    // Context from retrieved chunks
-    const sources = vectorResults.map((item) => item.payload?.text ?? "");
-
-
-    console.log("retrived data",sources);
-    
-    // Generate answer
-
-    const response = await ai.invoke(`
-      You are a helpful pdf or text assistant. Answer the user's question using the context below.
-
-      Context:
-      ${sources}
-
-      Question:
-      ${query}
-    `);
-
-    console.log(response);
-    const answer = response.content;
+    const { ai_response, sources } = await chatResponse(query, userId, docId);
 
     return NextResponse.json({
-      answer,
-      sources: sources,
+      ai_response,
+      sources,
     });
   } catch (error) {
     console.error(error);

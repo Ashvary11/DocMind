@@ -1,17 +1,10 @@
-// lib/db.ts
-import mongoose from "mongoose";
 import { QdrantClient } from "@qdrant/js-client-rest";
 
-export async function connectDB() {
-  if (mongoose.connection.readyState >= 1) return;
-  await mongoose.connect(process.env.MONGODB_URI!);
-}
-
-// ---------------
 export const qdrant = new QdrantClient({
   url: process.env.CLUSTER_ENDPOINT,
   apiKey: process.env.QDRANT_API_KEY,
 });
+
 
 export const initQdrant = async () => {
   try {

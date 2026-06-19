@@ -5,7 +5,7 @@ import { Plus, Inbox } from "lucide-react";
 import DocumentCard from "./DocumentCard";
 import UploadModal from "./UploadModal";
 import EditDocumentModal from "./EditDocumentModal";
-import { DocumentItem } from "@/app/types";
+import { DocumentItem } from "@/lib/types";
 import { toast } from "sonner";
 import Button from "../ui/Button";
 import { getUserId } from "@/lib/user";
