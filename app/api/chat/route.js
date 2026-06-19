@@ -19,10 +19,11 @@ export async function POST(req) {
       );
     }
 
-    const { ai_response, sources } = await chatResponse(query, userId, docId);
+    const { ai_response,isDataFound, sources } = await chatResponse(query, userId, docId);
 
     return NextResponse.json({
       ai_response,
+      isDataFound,
       sources,
     });
   } catch (error) {

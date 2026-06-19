@@ -4,7 +4,6 @@ import path from "path";
 import { connectDB } from "@/lib/db/mongo";
 import Document from "@/models/document";
 import { processData } from "@/lib/service/document.service";
- 
 
 export async function POST(req: Request) {
   try {
@@ -50,7 +49,8 @@ export async function POST(req: Request) {
     const buffer = Buffer.from(bytes);
 
     // Saving process file locally
-    const uploadDir = path.join(process.cwd(), "uploads");
+    // const uploadDir = path.join(process.cwd(), "uploads");
+    const uploadDir = path.join(process.cwd(), "storage", "uploads");
     await fs.mkdir(uploadDir, { recursive: true });
 
     const filePath = path.join(uploadDir, file.name);

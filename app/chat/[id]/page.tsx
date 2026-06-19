@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
-
 import { Send, FileText, Loader2 } from "lucide-react";
 import { DocumentItem } from "@/lib/types";
 import { toast } from "sonner";
 import { getUserId } from "@/lib/user";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 interface Message {
   role: "user" | "assistant";
@@ -67,7 +68,7 @@ export default function ChatPage() {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to get answer");
-      // console.log(data);
+      console.log(data);
 
       setMessages((m) => [
         ...m,
@@ -119,8 +120,14 @@ export default function ChatPage() {
                   : "bg-slate-100 text-slate-800"
               }`}
             >
-              <p className="whitespace-pre-wrap">{m.content}</p>
-              {m.sources && m.sources.length > 0 && (
+              <div className="whitespace-pre-wrap">
+                {
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {m.content}
+                  </ReactMarkdown>
+                }
+              </div>
+              {/* {m.isDataFound && (
                 <details className="mt-2 text-xs opacity-70">
                   <summary className="cursor-pointer">View sources</summary>
                   {m.sources.map((s, j) => (
@@ -129,7 +136,7 @@ export default function ChatPage() {
                     </p>
                   ))}
                 </details>
-              )}
+              )} */}
             </div>
           </div>
         ))}
