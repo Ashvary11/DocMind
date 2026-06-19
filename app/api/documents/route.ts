@@ -60,7 +60,7 @@ export async function POST(req: Request) {
       userId,
       title: title || file.name,
       fileName: file.name,
-      filePath,
+      filePath, 
       fileSize: file.size,
       status: "starting",
     });

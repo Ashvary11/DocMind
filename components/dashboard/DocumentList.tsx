@@ -57,6 +57,7 @@ export default function DocumentList() {
       });
       if (!res.ok) throw new Error("Delete failed");
 
+
       toast.success("Document deleted");
       setDocs((prev) => prev.filter((d) => d._id !== doc._id));
     } catch (err: unknown) {
