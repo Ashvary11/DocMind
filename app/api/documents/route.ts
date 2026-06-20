@@ -50,7 +50,7 @@ export async function POST(req: Request) {
 
     // Saving process file locally
     // const uploadDir = path.join(process.cwd(), "uploads");
-    const uploadDir = path.join(process.cwd(), "storage", "uploads");
+    const uploadDir = path.join(process.cwd(), "tmp", "uploads");
     await fs.mkdir(uploadDir, { recursive: true });
 
     const filePath = path.join(uploadDir, file.name);
