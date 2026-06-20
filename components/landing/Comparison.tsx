@@ -3,16 +3,20 @@ import { X, Check } from "lucide-react";
 import { motion } from "framer-motion";
 
 const traditional = [
-  "Keyword matching only",
-  "Poor context understanding",
-  "Manual document browsing",
+  "Searches only exact words",
+  "Requires manual document reading",
+  "Misses important context",
+  "Takes time to find answers",
+  "No direct answers",
+  "Endless scrolling through documents",
 ];
 
 const docmind = [
-  "Semantic understanding",
-  "Context-aware retrieval",
-  "Natural language answers",
-  "Instant knowledge access",
+  "Ask questions naturally",
+  "Understands document context",
+  "Finds relevant information instantly",
+  "Provides direct answers",
+  "Saves time and effort",
 ];
 
 export default function Comparison() {
@@ -23,7 +27,7 @@ export default function Comparison() {
       viewport={{ once: true, amount: 0.2 }}
       transition={{
         duration: 0.7,
-          ease: "easeOut",
+        ease: "easeOut",
       }}
       className="bg-slate-50 px-6 py-24"
     >

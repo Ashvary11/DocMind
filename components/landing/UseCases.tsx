@@ -14,9 +14,9 @@ const cases = [
     title: "Researchers",
     desc: "Extract insights from large collections of papers and reports.",
   },
-  {
-    title: "Developers",
-    desc: "Build custom AI workflows on top of your document data.",
+ {
+    title: "Professionals",
+    desc: "Find answers, generate summaries, and extract information from documents.",
   },
 ];
 

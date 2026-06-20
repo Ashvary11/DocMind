@@ -19,7 +19,6 @@ export default function DocumentList() {
   const fetchDocs = useCallback(async () => {
     const userId = getUserId();
     try {
-      // const res = await fetch("/api/documents");
       const res = await fetch(`/api/documents?userId=${userId}`);
       const data = await res.json();
       setDocs(data.documents || []);
@@ -56,7 +55,6 @@ export default function DocumentList() {
         method: "DELETE",
       });
       if (!res.ok) throw new Error("Delete failed");
-
 
       toast.success("Document deleted");
       setDocs((prev) => prev.filter((d) => d._id !== doc._id));
@@ -95,7 +93,7 @@ export default function DocumentList() {
         </div>
       ) : (
         <div className="space-y-3">
-          {docs.map((doc) => (
+          {docs.map((doc, i) => (
             <DocumentCard
               key={doc._id}
               doc={doc}

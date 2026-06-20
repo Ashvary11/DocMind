@@ -1,16 +1,17 @@
-// app/api/chat/route.ts
-
-import { NextResponse } from "next/server";
-
+import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/db/mongo";
-
 import { chatResponse } from "@/lib/service/chat.service";
 
-export async function POST(req) {
+interface ChatRequestBody {
+  query: string;
+  userId: string;
+  docId: string;
+}
+export async function POST(req: NextRequest) {
   try {
     await connectDB();
 
-    const { query, userId, docId } = await req.json();
+    const { query, userId, docId }: ChatRequestBody = await req.json();
 
     if (!query || !userId || !docId) {
       return NextResponse.json(
@@ -19,7 +20,11 @@ export async function POST(req) {
       );
     }
 
-    const { ai_response,isDataFound, sources } = await chatResponse(query, userId, docId);
+    const { ai_response, isDataFound, sources } = await chatResponse(
+      query,
+      userId,
+      docId,
+    );
 
     return NextResponse.json({
       ai_response,
@@ -27,7 +32,7 @@ export async function POST(req) {
       sources,
     });
   } catch (error) {
-    console.error(error);
+    console.error("Chat API Error:", error);
 
     return NextResponse.json(
       { error: "Failed to process query" },

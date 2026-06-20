@@ -31,6 +31,6 @@ export const searchInVector = async (
     return results;
   } catch (error) {
     console.log(error);
-    return error;
+    throw error;
   }
 };

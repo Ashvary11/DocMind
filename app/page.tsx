@@ -9,6 +9,7 @@ import UseCases from "../components/landing/UseCases";
 import Comparison from "../components/landing/Comparison";
 import CTA from "../components/landing/CTA";
 import Footer from "../components/landing/Footer";
+
 // import { Plane } from "lucide-react";
 
 export default function Home() {

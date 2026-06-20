@@ -9,17 +9,19 @@ const points = [
   "Vector Search Powered",
   "Fast AI Responses",
   "Secure Document Processing",
-  "Auto Data Delete",
+  "Delete Data Anytime",
+  "Custom Titles for Easy Reference",
+  "Chat with Specific Documents",
 ];
 
 export default function Hero() {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y:  20 }}
+      whileInView={{ opacity: 1, y:  0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
-      className="relative overflow-hidden bg-linear-to-b from-brand-50 to-white px-6 py-24 sm:py-32"
+      className="relative overflow-hidden bg-linear-to-b from-brand-50 to-white px-6 py-10 sm:py-22"
     >
       <div className="mx-auto max-w-4xl text-center">
         <h1 className="text-4xl font-bold tracking-tight text-brand-900 sm:text-6xl">

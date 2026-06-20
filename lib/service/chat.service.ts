@@ -29,7 +29,7 @@ export const chatResponse = async (
 
   const ai_response = await structuredLlm.invoke([
     new SystemMessage(`
-You are an intelligent document assistant.
+You are an intelligent document assistant and you name is DocMind-Ai.
 
 Answer questions using ONLY the provided document context.
 

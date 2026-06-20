@@ -6,6 +6,7 @@ import { UploadCloud } from "lucide-react";
 import Button from "../ui/Button";
 import Modal from "../ui/Modal";
 import { getUserId } from "@/lib/user";
+import { useDropzone } from "react-dropzone";
 
 interface Props {
   open: boolean;
@@ -16,8 +17,9 @@ interface Props {
 export default function UploadModal({ open, onClose, onUploaded }: Props) {
   const [file, setFile] = useState<File | null>(null);
   const [title, setTitle] = useState("");
-  const [loading, setLoading] = useState(false);  
+  const [loading, setLoading] = useState(false);
   const userId = getUserId();
+  console.log("fileStatus", file);
 
   const handleSubmit = async () => {
     if (!file) {
@@ -62,7 +64,18 @@ export default function UploadModal({ open, onClose, onUploaded }: Props) {
       setLoading(false);
     }
   };
-
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    accept: {
+      "application/pdf": [".pdf"],
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+        [".docx"],
+      "text/plain": [".txt"],
+    },
+    multiple: false,
+    onDrop: (acceptedFiles) => {
+      setFile(acceptedFiles[0]);
+    },
+  });
   return (
     <Modal open={open} onClose={onClose} title="Upload Document">
       <div className="space-y-4">
@@ -78,7 +91,7 @@ export default function UploadModal({ open, onClose, onUploaded }: Props) {
             className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
           />
         </div>
-
+        {/* 
         <label className="flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-slate-300 p-8 text-center hover:border-brand-400">
           <UploadCloud className="h-8 w-8 text-slate-400" />
           <span className="text-sm text-slate-600">
@@ -90,9 +103,29 @@ export default function UploadModal({ open, onClose, onUploaded }: Props) {
             className="hidden"
             onChange={(e) => setFile(e.target.files?.[0] || null)}
           />
-        </label>
+        </label> */}
+        <div
+          {...getRootProps()}
+          className={`flex cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed p-8 text-center
+    ${isDragActive ? "border-brand-500 bg-brand-50" : "border-slate-300"}`}
+        >
+          <input {...getInputProps()} />
 
-        <Button onClick={handleSubmit} loading={loading} className="w-full">
+          <UploadCloud className="h-8 w-8 text-slate-400" />
+
+          <span className="text-sm text-slate-600">
+            {file
+              ? file.name
+              : isDragActive
+                ? "Drop file here..."
+                : "Drag & drop or click to upload"}
+          </span>
+        </div>
+        <Button
+          onClick={handleSubmit}
+          loading={loading}
+          className={`w-full ${file !== null && "bg-green-500 text-white"}`}
+        >
           Upload & Process
         </Button>
       </div>
