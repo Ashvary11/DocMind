@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import os from "os";
 import fs from "fs/promises";
 import path from "path";
 import { connectDB } from "@/lib/db/mongo";
@@ -49,8 +50,11 @@ export async function POST(req: Request) {
     const buffer = Buffer.from(bytes);
 
     // Saving process file locally
-    // const uploadDir = path.join(process.cwd(), "uploads");
-    const uploadDir = path.join(process.cwd(), "tmp", "uploads");
+      // const uploadDir = path.join(process.cwd(), "uploads");
+
+    //for vercel
+    const uploadDir = path.join(os.tmpdir(), "uploads")
+
     await fs.mkdir(uploadDir, { recursive: true });
 
     const filePath = path.join(uploadDir, file.name);
