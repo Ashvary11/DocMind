@@ -32,10 +32,10 @@ export default function DocumentCard({ doc, onEdit, onDelete }: Props) {
   const StatusIcon = status.icon;
 
   return (
-    <div className="flex items-start sm:items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-4 transition hover:shadow-md hover:border-slate-300 min-w-0">
+    <div className="flex items-start sm:items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white p-3 transition hover:shadow-md hover:border-slate-300 min-w-0">
       {/* Left: icon + info */}
       <div className="flex items-start sm:items-center gap-3 min-w-0 flex-1">
-        <div className="shrink-0 rounded-xl bg-brand-50 p-3">
+        <div className="shrink-0 rounded-xl bg-brand-50 p-2">
           <FileText className="h-5 w-5 text-brand-500" />
         </div>
         <div className="min-w-0 flex-1">

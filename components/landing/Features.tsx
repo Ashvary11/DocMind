@@ -39,7 +39,7 @@ const features = [
   {
     icon: ShieldCheck,
     title: "Secure by Design",
-    desc: "Your data remains isolated, encrypted, and accessible only to you.",
+    desc: "Your data remains isolated and accessible only to you.",
   },
 ];
 

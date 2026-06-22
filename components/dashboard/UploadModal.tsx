@@ -49,7 +49,7 @@ export default function UploadModal({ open, onClose, onUploaded }: Props) {
       }
       console.log("data--", data);
 
-      toast.success("Document uploaded! Processing started.");
+      toast.success("Document uploaded.");
       setFile(null);
       setTitle("");
       onUploaded();

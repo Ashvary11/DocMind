@@ -47,7 +47,7 @@ export default function Hero() {
             href="/dashboard"
             className="rounded-lg border border-slate-300 px-8 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
           >
-            View Demo
+            Open Dashboard
           </Link>
         </div>
 

@@ -98,7 +98,7 @@ export default function ChatPage() {
   };
 
   useEffect(() => {
-    if (!id) return;
+    if (!id || !userId || !doc) return;
 
     const initConversation = async () => {
       try {
@@ -110,7 +110,7 @@ export default function ChatPage() {
           body: JSON.stringify({
             userId,
             documentId: id,
-            title: doc?.fileName,
+            fileName: doc?.fileName,
           }),
         });
 
@@ -124,7 +124,7 @@ export default function ChatPage() {
     };
 
     initConversation();
-  }, [id, userId]);
+  }, [id, userId, doc]);
 
   useEffect(() => {
     if (!conversationId) return;
@@ -138,11 +138,12 @@ export default function ChatPage() {
 
       const data = await res.json();
       // console.log(data);
+
       setMessages(data.messages);
     };
     loadMessages();
   }, [conversationId]);
-
+  console.log("doc", doc);
   return (
     <>
       <AppBreadcrumb

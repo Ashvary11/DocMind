@@ -35,7 +35,7 @@ export default function CTA() {
             href="/dashboard"
             className="rounded-lg border border-white/40 px-8 py-3 text-sm font-semibold  transition   hover:bg-gray-300"
           >
-            View Demo
+           Explore App
           </Link>
         </div>
 

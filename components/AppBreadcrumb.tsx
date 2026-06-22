@@ -17,18 +17,22 @@ type BreadcrumbItem = {
 
 export function AppBreadcrumb({ items }: { items: BreadcrumbItem[] }) {
   return (
-    <Breadcrumb className="mt-1">
-      <BreadcrumbList>
+    <Breadcrumb className="mb-4">
+      <BreadcrumbList className="rounded-lg border bg-muted/40 px-3 py-2">
         {items.map((item, index) => (
           <React.Fragment key={index}>
-            {index > 0 && <BreadcrumbSeparator />}
+            {index > 0 && <BreadcrumbSeparator className="mx-2" />}
 
             <BreadcrumbItem>
               {index === items.length - 1 ? (
-                <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                <BreadcrumbPage className="font-medium text-foreground">
+                  {item.label}
+                </BreadcrumbPage>
               ) : (
-                // <BreadcrumbLink href={item.href!}>{item.label}</BreadcrumbLink>
-                <BreadcrumbLink asChild>
+                <BreadcrumbLink
+                  asChild
+                  className="transition-colors hover:text-primary"
+                >
                   <Link href={item.href!}>{item.label}</Link>
                 </BreadcrumbLink>
               )}

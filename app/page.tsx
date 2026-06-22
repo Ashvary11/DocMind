@@ -1,6 +1,6 @@
 "use client";
 
-// import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 import Hero from "../components/landing/Hero";
 import Features from "../components/landing/Features";
@@ -10,30 +10,35 @@ import Comparison from "../components/landing/Comparison";
 import CTA from "../components/landing/CTA";
 import Footer from "../components/landing/Footer";
 
-// import { Plane } from "lucide-react";
-
 export default function Home() {
-  // const { scrollYProgress } = useScroll();
-  // const y = useTransform(scrollYProgress, [0, 1], ["80vh", "-20vh"]);
-  // const x = useTransform(scrollYProgress, [0, 1], ["10vw", "-5vw"]);
-  // const rotate = useTransform(scrollYProgress, [0, 1], [20, -10]);
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], [0, -300]);
 
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      {/* <motion.div
-        style={{ x, y, rotate }}
-        className="fixed bottom-0 right-0 z-50"
+    <div className="relative flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      <motion.div
+        style={{ y }}
+        className="pointer-events-none fixed -right-25 top-0 z-0 opacity-20"
       >
-        <Plane size={80} />
-      </motion.div> */}
+        <svg width="600" height="1200" viewBox="0 0 600 1200">
+          <path
+            d="M500 0C250 200 600 500 300 700C0 900 400 1100 150 1200"
+            stroke="#71717a"
+            strokeWidth="30"
+            fill="none"
+          />
+        </svg>
+      </motion.div>
 
-      <Hero />
-      <Features />
-      <HowItWorks />
-      <UseCases />
-      <Comparison />
-      <CTA />
-      <Footer />
+      <div className="relative z-10 w-full">
+        <Hero />
+        <Features />
+        <HowItWorks />
+        <UseCases />
+        <Comparison />
+        <CTA />
+        <Footer />
+      </div>
     </div>
   );
 }

@@ -29,7 +29,7 @@ export const chatResponse = async (
     .limit(10)
     .lean();
 
-  history.reverse();
+  // history.reverse();
 
   const chatHistory = history
     .map(
@@ -103,17 +103,17 @@ ${query}
 
   // console.log("usage_metadata:", ai_response.raw.usage_metadata);
 
-//   console.log(`
-// ==================== FULL PROMPT  
+  //   console.log(`
+  // ==================== FULL PROMPT
 
-// SYSTEM:
-// ${systemPrompt}
+  // SYSTEM:
+  // ${systemPrompt}
 
-// USER:
-// ${userPrompt}
+  // USER:
+  // ${userPrompt}
 
-// ======================= 
-// `);
+  // =======================
+  // `);
 
   // console.log("usage_metadata:", ai_response.raw);
 
