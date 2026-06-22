@@ -19,12 +19,15 @@ interface Message {
 
 export default function ChatPage() {
   const { id } = useParams<{ id: string }>();
+
+  const [conversationId, setConversationId] = useState("");
   const [doc, setDoc] = useState<DocumentItem | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const userId = getUserId();
+  // console.log("doc", doc);
 
   useEffect(() => {
     if (!id) return;
@@ -55,7 +58,10 @@ export default function ChatPage() {
 
   const handleSend = async () => {
     if (!input.trim() || loading) return;
-
+    if (!conversationId) {
+      toast.error("Conversation not ready");
+      return;
+    }
     const question = input.trim();
     setMessages((m) => [...m, { role: "user", content: question }]);
     setInput("");
@@ -65,7 +71,11 @@ export default function ChatPage() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ docId: id, query: question, userId }),
+        // body: JSON.stringify({ docId: id, query: question, userId }),
+        body: JSON.stringify({
+          conversationId,
+          query: question,
+        }),
       });
 
       const data = await res.json();
@@ -86,6 +96,52 @@ export default function ChatPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (!id) return;
+
+    const initConversation = async () => {
+      try {
+        const res = await fetch("/api/conversations", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId,
+            documentId: id,
+            title: doc?.fileName,
+          }),
+        });
+
+        const data = await res.json();
+
+        setConversationId(data.conversationId);
+      } catch (error) {
+        console.error(error);
+        toast.error("Failed to initialize chat");
+      }
+    };
+
+    initConversation();
+  }, [id, userId]);
+
+  useEffect(() => {
+    if (!conversationId) return;
+    const loadMessages = async () => {
+      const res = await fetch(`/api/conversations/${conversationId}/messages`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await res.json();
+      // console.log(data);
+      setMessages(data.messages);
+    };
+    loadMessages();
+  }, [conversationId]);
 
   return (
     <>

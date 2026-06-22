@@ -19,7 +19,7 @@ export default function UploadModal({ open, onClose, onUploaded }: Props) {
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const userId = getUserId();
-  console.log("fileStatus", file);
+  // console.log("fileStatus", file);
 
   const handleSubmit = async () => {
     if (!file) {

@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -27,7 +27,10 @@ export function AppBreadcrumb({ items }: { items: BreadcrumbItem[] }) {
               {index === items.length - 1 ? (
                 <BreadcrumbPage>{item.label}</BreadcrumbPage>
               ) : (
-                <BreadcrumbLink href={item.href!}>{item.label}</BreadcrumbLink>
+                // <BreadcrumbLink href={item.href!}>{item.label}</BreadcrumbLink>
+                <BreadcrumbLink asChild>
+                  <Link href={item.href!}>{item.label}</Link>
+                </BreadcrumbLink>
               )}
             </BreadcrumbItem>
           </React.Fragment>

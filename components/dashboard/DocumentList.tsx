@@ -68,32 +68,45 @@ export default function DocumentList() {
   };
 
   return (
-    <div>
-      <div className="mb-6 flex items-center justify-between">
+    <div className="min-w-0">
+      <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900">Your Documents</h1>
-          <p className="text-sm text-slate-500">
-            Upload your AI knowledge base
+          <p className="text-sm text-slate-500 mt-0.5">
+            Upload and manage your AI knowledge base
           </p>
         </div>
-        <Button onClick={() => setUploadOpen(true)}>
+        <Button
+          onClick={() => setUploadOpen(true)}
+          className="w-full sm:w-auto"
+        >
           <Plus className="h-4 w-4" /> Upload Document
         </Button>
       </div>
 
       {loading ? (
-        <p className="text-sm text-slate-500">Loading documents...</p>
+        <div className="space-y-3">
+          {[1, 2, 3].map((i) => (
+            <div
+              key={i}
+              className="h-20 rounded-2xl bg-slate-100 animate-pulse"
+            />
+          ))}
+        </div>
       ) : docs.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 py-20 text-center">
+        <div className="flex flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 py-20 text-center px-4">
           <Inbox className="mb-4 h-10 w-10 text-slate-300" />
-          <p className="text-slate-500">No documents yet</p>
+          <p className="font-medium text-slate-600">No documents yet</p>
+          <p className="text-sm text-slate-400 mt-1">
+            Upload a PDF or Word doc to get started
+          </p>
           <Button onClick={() => setUploadOpen(true)} className="mt-4">
             <Plus className="h-4 w-4" /> Upload your first document
           </Button>
         </div>
       ) : (
         <div className="space-y-3">
-          {docs.map((doc, i) => (
+          {docs.map((doc) => (
             <DocumentCard
               key={doc._id}
               doc={doc}
