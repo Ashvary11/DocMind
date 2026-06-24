@@ -3,6 +3,7 @@ import { connectDB } from "@/lib/db/mongo";
 import { chatResponse } from "@/lib/service/chat.service";
 import Conversation from "@/models/conversation";
 import Message from "@/models/message";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 interface ChatRequestBody {
   query: string;
@@ -42,13 +43,23 @@ export async function POST(req: NextRequest) {
       content: query,
     });
 
+    //----- rate -limit
+
+    const limit = await checkRateLimit(userId);
+    if (!limit.success) {
+      return NextResponse.json(
+        { error: limit.error },
+        { status: limit.status },
+      );
+    }
+
     // ---------- ai - reposnes
 
     const { ai_response, isDataFound, sources } = await chatResponse(
       query,
       userId,
       docId,
-      conversationId
+      conversationId,
     );
 
     await Message.create({

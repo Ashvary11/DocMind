@@ -78,7 +78,7 @@ export default function DocumentList() {
         </div>
         <Button
           onClick={() => setUploadOpen(true)}
-          className="w-full sm:w-auto"
+          className="w-full sm:w-auto hover:bg-orange-300 hover:text-white hover:font-bold"
         >
           <Plus className="h-4 w-4" /> Upload Document
         </Button>
