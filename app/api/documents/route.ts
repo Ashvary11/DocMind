@@ -5,6 +5,7 @@ import path from "path";
 import { connectDB } from "@/lib/db/mongo";
 import Document from "@/models/document";
 import { processData } from "@/lib/service/document.service";
+import { updateOnSlack } from "@/lib/service/slack-notify";
 
 export async function POST(req: Request) {
   try {
@@ -50,27 +51,29 @@ export async function POST(req: Request) {
     const buffer = Buffer.from(bytes);
 
     // Saving process file locally
-      // const uploadDir = path.join(process.cwd(), "uploads");
+    // const uploadDir = path.join(process.cwd(), "uploads");
 
     //for vercel
-    const uploadDir = path.join(os.tmpdir(), "uploads")
+    const uploadDir = path.join(os.tmpdir(), "uploads");
 
     await fs.mkdir(uploadDir, { recursive: true });
 
     const filePath = path.join(uploadDir, file.name);
     await fs.writeFile(filePath, buffer);
-
+    
     const doc = await Document.create({
       userId,
       title: title || file.name,
       fileName: file.name,
-      filePath, 
+      filePath,
       fileSize: file.size,
       status: "starting",
     });
 
     // the main processing for rag
     const result = await processData(doc);
+
+    if (result?.success) await updateOnSlack(doc);
 
     return NextResponse.json({
       success: true,
